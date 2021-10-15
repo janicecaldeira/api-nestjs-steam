@@ -18,7 +18,7 @@ export class UsersService {
     } else if (createUserDto.email != createUserDto.emailConfirmation) {
       throw new UnprocessableEntityException('Os e-mails não conferem');
     } else {
-      return this.userRepository.createUser(createUserDto, UserRole.ADMIN);
+      return this.userRepository.createUser(createUserDto, UserRole.USER);
     }
   }
 }

@@ -7,6 +7,7 @@ import * as crypto from 'crypto';
 import {
   ConflictException,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 
 @EntityRepository(User)
@@ -20,7 +21,7 @@ export class UserRepository extends Repository<User> {
     user.email = email;
     user.username = username;
     user.country = country;
-    user.age = age;
+    user.age = await this.checkAge(age);
     user.role = role;
     user.status = true;
     user.confirmationToken = crypto.randomBytes(32).toString('hex');
@@ -45,5 +46,12 @@ export class UserRepository extends Repository<User> {
 
   private async hashPassword(password: string, salt: string): Promise<string> {
     return bcrypt.hash(password, salt);
+  }
+
+  private async checkAge(age: number): Promise<number> {
+    if (age < 13) {
+      throw new UnauthorizedException('Usuário menor de 13 anos');
+    }
+    return age;
   }
 }
