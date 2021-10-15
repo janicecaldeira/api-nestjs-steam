@@ -17,4 +17,15 @@ export class UsersController {
       message: 'Usuário cadastrado com sucesso!',
     };
   }
+
+  @Post()
+  async createAdminUser(
+    @Body(ValidationPipe) createUserDto: CreateUserDto,
+  ): Promise<ReturnUserDto> {
+    const user = await this.usersService.createAdminUser(createUserDto);
+    return {
+      user,
+      message: 'Administrador cadastrado com sucesso',
+    };
+  }
 }
