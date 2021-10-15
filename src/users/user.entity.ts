@@ -23,7 +23,7 @@ export class User extends BaseEntity {
   @Column({ nullable: false, type: 'varchar', length: 60 })
   country: string;
 
-  @Column({ nullable: false, type: 'number' })
+  @Column({ nullable: false, type: 'integer' })
   age: number;
 
   @Column({ nullable: false, type: 'varchar', length: 20 })
