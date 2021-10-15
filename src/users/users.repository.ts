@@ -15,10 +15,12 @@ export class UserRepository extends Repository<User> {
     createUserDto: CreateUserDto,
     role: UserRole,
   ): Promise<User> {
-    const { email, username, password } = createUserDto;
+    const { email, username, password, country, age } = createUserDto;
     const user = this.create();
     user.email = email;
     user.username = username;
+    user.country = country;
+    user.age = age;
     user.role = role;
     user.status = true;
     user.confirmationToken = crypto.randomBytes(32).toString('hex');
