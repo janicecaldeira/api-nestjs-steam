@@ -18,7 +18,7 @@ export class UsersController {
     };
   }
 
-  @Post()
+  @Post('/adm')
   async createAdminUser(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
   ): Promise<ReturnUserDto> {
