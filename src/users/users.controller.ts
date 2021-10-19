@@ -9,6 +9,7 @@ import {
   Patch,
   ForbiddenException,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { ReturnUserDto } from './dtos/return-user.dto';
@@ -20,8 +21,10 @@ import { UserRole } from './user-roles.enum';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { User } from './user.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
+import { FindUsersQueryDto } from './dtos/find-user-query.dto';
 
 @Controller('users')
+@UseGuards(AuthGuard(), RolesGuard)
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -38,7 +41,6 @@ export class UsersController {
 
   @Post('/adm')
   @Role(UserRole.ADMIN)
-  @UseGuards(AuthGuard(), RolesGuard)
   async createAdminUser(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
   ): Promise<ReturnUserDto> {
@@ -46,6 +48,17 @@ export class UsersController {
     return {
       user,
       message: 'Administrador cadastrado com sucesso',
+    };
+  }
+
+  @Get()
+  @Role(UserRole.ADMIN)
+  async findUsers(@Query() query: FindUsersQueryDto) {
+    const found = await this.usersService.findUsers(query);
+
+    return {
+      found,
+      message: 'Usuários encontrados com sucesso',
     };
   }
 

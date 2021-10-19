@@ -39,4 +39,9 @@ export class AuthController {
   getMe(@GetUser() user: User): User {
     return user;
   }
+
+  //Fazer
+  //Update do usuário logado
+  //Delete da conta do usuário logado
+  //Buscar outro usuário pelo username
 }

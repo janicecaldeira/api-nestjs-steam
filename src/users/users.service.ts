@@ -10,6 +10,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { User } from './user.entity';
 import { UserRole } from './user-roles.enum';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { FindUsersQueryDto } from './dtos/find-user-query.dto';
 
 @Injectable()
 export class UsersService {
@@ -34,6 +35,13 @@ export class UsersService {
     } else {
       return this.userRepository.createUser(createUserDto, UserRole.ADMIN);
     }
+  }
+
+  async findUsers(
+    queryDto: FindUsersQueryDto,
+  ): Promise<{ users: User[]; total: number }> {
+    const users = await this.userRepository.findUsers(queryDto);
+    return users;
   }
 
   async findUserById(userId: string): Promise<User> {
