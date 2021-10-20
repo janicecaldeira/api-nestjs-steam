@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class LoggerInterceptor implements NestInterceptor {
   constructor(@Inject('winston') private logger: Logger) {}
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    this.logger.log(context.switchToHttp().getRequest());
+    this.log(context.switchToHttp().getRequest());
     return next.handle();
   }
 
