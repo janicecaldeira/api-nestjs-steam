@@ -4,5 +4,5 @@ export class CreateGameDto {
   summary: string;
   genre: string;
   release_date: string;
-  likes: string;
+  likes: number;
 }

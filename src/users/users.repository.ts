@@ -92,7 +92,7 @@ export class UserRepository extends Repository<User> {
       query.andWhere('user.role ILIKE :role', { role });
     }
 
-    //query.skip((queryDto.page - 1) * queryDto.limit);
+    query.skip((queryDto.page - 1) * queryDto.limit);
     query.take(queryDto.limit);
     query.orderBy(queryDto.sort ? JSON.parse(queryDto.sort) : undefined);
     query.select(['user.username', 'user.email', 'user.role', 'user.status']);
