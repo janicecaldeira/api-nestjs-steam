@@ -1,7 +1,6 @@
 import {
   ConflictException,
   InternalServerErrorException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { Game } from './game.entity';
