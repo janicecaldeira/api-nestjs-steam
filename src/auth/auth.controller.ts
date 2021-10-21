@@ -48,7 +48,9 @@ export class AuthController {
     @Body('email') email: string,
   ): Promise<{ message: string }> {
     await this.authService.sendRecoverPasswordEmail(email);
-    return { message: 'Foi enviado um e-mail de recuperação de senha' };
+    return {
+      message: 'Foi enviado um e-mail com instruções para alteração de senha',
+    };
   }
 
   @Patch('/reset-password/:token')

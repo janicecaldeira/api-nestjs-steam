@@ -58,7 +58,7 @@ export class UsersController {
 
     return {
       found,
-      message: 'Usuários encontrados com sucesso',
+      message: 'Usuários encontrados',
     };
   }
 

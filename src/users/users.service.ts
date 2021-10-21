@@ -60,7 +60,7 @@ export class UsersService {
     user.username = username ? username : user.username;
     user.email = email ? email : user.email;
     user.role = role ? role : user.role;
-    //user.status = status ? role : user.status;
+    user.status = status ? status : user.status;
 
     try {
       await user.save();

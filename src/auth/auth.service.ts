@@ -83,7 +83,7 @@ export class AuthService {
       subject: 'Recuperação de senha',
       template: './recover-password',
       context: {
-        token: user.confirmationToken,
+        token: user.recoverToken,
       },
     };
 
