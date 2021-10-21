@@ -31,15 +31,12 @@ export class Game extends BaseEntity {
   @Column({ nullable: false, type: 'varchar', length: 20 })
   release_date: string;
 
-  @Column({ nullable: true, type: 'integer' })
-  like: number;
-
-  @ManyToOne(() => User, (user) => user.games)
-  user: User;
-
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => User, (user) => user.games)
+  user: User;
 }
