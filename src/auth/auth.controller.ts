@@ -7,6 +7,7 @@ import {
   UseGuards,
   Patch,
   Param,
+  ForbiddenException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dtos/create-user.dto';
@@ -67,9 +68,4 @@ export class AuthController {
   getMe(@GetUser() user: User): User {
     return user;
   }
-
-  //Fazer
-  //Update do usuário logado
-  //Delete da conta do usuário logado
-  //Buscar outro usuário pelo username
 }

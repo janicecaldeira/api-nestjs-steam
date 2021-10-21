@@ -78,7 +78,7 @@ export class UsersController {
     @GetUser() user: User,
     @Param('id') id: string,
   ) {
-    if (user.role != UserRole.ADMIN && user.id.toString() != id)
+    if (user.role != UserRole.ADMIN && user.id != id)
       throw new ForbiddenException(
         'Você não tem autorização para acessar esse recurso',
       );

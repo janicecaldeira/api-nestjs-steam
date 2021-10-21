@@ -1,3 +1,5 @@
+import { Game } from 'src/games/game.entity';
+
 import {
   BaseEntity,
   Entity,
@@ -6,6 +8,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
@@ -51,6 +54,9 @@ export class User extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Game, (game) => game.user)
+  games: Game[];
 
   async checkPassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);

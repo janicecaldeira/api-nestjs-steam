@@ -1,3 +1,4 @@
+import { User } from 'src/users/user.entity';
 import {
   BaseEntity,
   Entity,
@@ -6,6 +7,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -31,6 +33,9 @@ export class Game extends BaseEntity {
 
   @Column({ nullable: true, type: 'integer' })
   like: number;
+
+  @ManyToOne(() => User, (user) => user.games)
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;
