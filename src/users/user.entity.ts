@@ -1,4 +1,5 @@
 import { Game } from 'src/games/game.entity';
+import { Follow } from 'src/follows/follow.entity';
 
 import {
   BaseEntity,
@@ -57,6 +58,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Game, (game) => game.user)
   games: Game[];
+
+  @OneToMany(() => Follow, (follow) => follow.user)
+  follows: Follow[];
 
   async checkPassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);
