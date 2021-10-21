@@ -24,7 +24,7 @@ export class LoggerInterceptor implements NestInterceptor {
     const user = (req as any).user;
     const userEmail = (req as any).email;
 
-    this.logger.info({
+    this.logger.info('Log', {
       timestamp: new Date().toISOString(),
       method: req.method,
       route: req.route.path,
