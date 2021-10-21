@@ -10,12 +10,16 @@ import { WinstonModule } from 'nest-winston';
 import { winstonConfig } from './configs/winston.config';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { mailerConfig } from './configs/mailer.config';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     WinstonModule.forRoot(winstonConfig),
     MailerModule.forRoot(mailerConfig),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     UsersModule,
     GamesModule,
     AuthModule,

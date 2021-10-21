@@ -36,7 +36,7 @@ export class AuthService {
       const mail = {
         to: user.email,
         from: 'noreply@steam.com',
-        subject: 'E-mail de confirmação',
+        subject: 'Confirme seu e-mail',
         template: './email-confirmation',
         context: {
           token: user.confirmationToken,
