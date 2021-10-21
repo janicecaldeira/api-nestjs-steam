@@ -43,7 +43,7 @@ export class AuthController {
     return { message: 'E-mail confirmado' };
   }
 
-  @Post('/send-recover/email')
+  @Post('/send-recover-email')
   async sendRecoverPasswordEmail(
     @Body('email') email: string,
   ): Promise<{ message: string }> {
