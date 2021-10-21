@@ -46,27 +46,6 @@ export class UserRepository extends Repository<User> {
     }
   }
 
-  async checkCredentials(credentialsDto: CredentialsDto): Promise<User> {
-    const { email, password } = credentialsDto;
-    const user = await this.findOne({ email, status: true });
-    if (user && (await user.checkPassword(password))) {
-      return user;
-    } else {
-      return null;
-    }
-  }
-
-  private async hashPassword(password: string, salt: string): Promise<string> {
-    return bcrypt.hash(password, salt);
-  }
-
-  private async checkAge(age: number): Promise<number> {
-    if (age < 13) {
-      throw new UnauthorizedException('Usuário menor de 13 anos');
-    }
-    return age;
-  }
-
   async findUsers(
     queryDto: FindUsersQueryDto,
   ): Promise<{ users: User[]; total: number }> {
@@ -100,5 +79,34 @@ export class UserRepository extends Repository<User> {
     const [users, total] = await query.getManyAndCount();
 
     return { users, total };
+  }
+
+  async changePassword(id: string, password: string) {
+    const user = await this.findOne(id);
+    user.salt = await bcrypt.genSalt();
+    user.password = await this.hashPassword(password, user.salt);
+    user.recoverToken = null;
+    await user.save();
+  }
+
+  async checkCredentials(credentialsDto: CredentialsDto): Promise<User> {
+    const { email, password } = credentialsDto;
+    const user = await this.findOne({ email, status: true });
+    if (user && (await user.checkPassword(password))) {
+      return user;
+    } else {
+      return null;
+    }
+  }
+
+  private async hashPassword(password: string, salt: string): Promise<string> {
+    return bcrypt.hash(password, salt);
+  }
+
+  private async checkAge(age: number): Promise<number> {
+    if (age < 13) {
+      throw new UnauthorizedException('Usuário menor de 13 anos');
+    }
+    return age;
   }
 }

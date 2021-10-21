@@ -11,5 +11,5 @@ export const mailerConfig: MailerOptions = {
       layoutsDir: path.resolve(__dirname, '..', '..', 'templates'),
     },
   },
-  transport: `smtps://janicecaldeira.dev@gmail.com:nice.dev.blue@smtp.gmail.com`,
+  transport: process.env.MAIL_TRANSPORT,
 };
