@@ -34,7 +34,7 @@ export class AuthService {
         to: user.email,
         from: 'noreply@steam.com',
         subject: 'E-mail de confirmação',
-        template: 'email-confirmation',
+        template: './email-confirmation',
         context: {
           token: user.confirmationToken,
         },
