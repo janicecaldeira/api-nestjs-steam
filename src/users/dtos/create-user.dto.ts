@@ -47,4 +47,7 @@ export class CreateUserDto {
     message: 'A confirmação da senha deve ter pelo menos 8 caracteres',
   })
   passwordConfirmation: string;
+
+  @IsString({ each: true })
+  readonly games: string[];
 }
