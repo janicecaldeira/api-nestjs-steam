@@ -51,6 +51,11 @@ export class UsersController {
     };
   }
 
+  @Get('/all')
+  findAll() {
+    return this.usersService.findAll();
+  }
+
   @Get()
   @Role(UserRole.ADMIN)
   async findUsers(@Query() query: FindUsersQueryDto) {

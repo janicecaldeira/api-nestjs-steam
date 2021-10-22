@@ -37,6 +37,12 @@ export class UsersService {
     }
   }
 
+  async findAll() {
+    return this.userRepository.find({
+      relations: ['games'],
+    });
+  }
+
   async findUsers(
     queryDto: FindUsersQueryDto,
   ): Promise<{ users: User[]; total: number }> {
