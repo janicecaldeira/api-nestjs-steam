@@ -8,8 +8,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
@@ -57,7 +57,7 @@ export class User extends BaseEntity {
   updatedAt: Date;
 
   @JoinTable({ name: 'user_games' })
-  @ManyToOne(() => Game, (game) => game.users, {
+  @OneToMany(() => Game, (game) => game.users, {
     cascade: true,
   })
   games: Game[];

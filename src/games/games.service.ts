@@ -22,7 +22,9 @@ export class GamesService {
   }
 
   async findGames(): Promise<Game[]> {
-    return Game.find();
+    return Game.find({
+      relations: ['games'],
+    });
   }
 
   async findGameById(gameId: string): Promise<Game> {

@@ -49,5 +49,5 @@ export class CreateUserDto {
   passwordConfirmation: string;
 
   @IsString({ each: true })
-  readonly games: string[];
+  games: string[];
 }
