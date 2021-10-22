@@ -38,7 +38,16 @@ export class Game extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToMany(() => User, (user) => user.games)
+  @ManyToMany(() => User, (user) => user.games, {
+    cascade: true,
+  })
   @JoinTable()
   users: User[];
+
+  addUsers(user: User) {
+    if (this.users == null) {
+      this.users = new Array<User>();
+    }
+    this.users.push(user);
+  }
 }

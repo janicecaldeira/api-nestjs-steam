@@ -60,6 +60,13 @@ export class User extends BaseEntity {
   @JoinTable({ name: 'user_games' })
   games: Game[];
 
+  addGames(game: Game) {
+    if (this.games == null) {
+      this.games = new Array<Game>();
+    }
+    this.games.push(game);
+  }
+
   async checkPassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);
     return hash === this.password;
