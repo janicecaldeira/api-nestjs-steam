@@ -22,13 +22,22 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { User } from './user.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { FindUsersQueryDto } from './dtos/find-users-query.dto';
+import {
+  ApiTags,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiForbiddenResponse,
+} from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 @UseGuards(AuthGuard(), RolesGuard)
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post()
+  @ApiCreatedResponse({ description: 'Sucesso ao criar' })
+  @ApiForbiddenResponse({ description: 'Não permitido' })
   async createUser(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
   ): Promise<ReturnUserDto> {
@@ -40,6 +49,8 @@ export class UsersController {
   }
 
   @Post('/adm')
+  @ApiCreatedResponse({ description: 'Sucesso ao criar' })
+  @ApiForbiddenResponse({ description: 'Não permitido' })
   @Role(UserRole.ADMIN)
   async createAdminUser(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
@@ -52,11 +63,15 @@ export class UsersController {
   }
 
   @Get('/all')
+  @ApiOkResponse({ description: 'Sucesso ao listar' })
+  @ApiForbiddenResponse({ description: 'Não permitido' })
   findAll() {
     return this.usersService.findAll();
   }
 
   @Get()
+  @ApiOkResponse({ description: 'Sucesso ao listar' })
+  @ApiForbiddenResponse({ description: 'Não permitido' })
   @Role(UserRole.ADMIN)
   async findUsers(@Query() query: FindUsersQueryDto) {
     const found = await this.usersService.findUsers(query);
@@ -68,6 +83,8 @@ export class UsersController {
   }
 
   @Get('/:id')
+  @ApiOkResponse({ description: 'Sucesso ao listar' })
+  @ApiForbiddenResponse({ description: 'Não permitido' })
   @Role(UserRole.ADMIN)
   async findUserById(@Param('id') id: string): Promise<ReturnUserDto> {
     const user = await this.usersService.findUserById(id);
@@ -78,6 +95,8 @@ export class UsersController {
   }
 
   @Patch('/:id')
+  @ApiOkResponse({ description: 'Sucesso ao atualizar' })
+  @ApiForbiddenResponse({ description: 'Não permitido' })
   async updateUser(
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
     @GetUser() user: User,
@@ -93,6 +112,8 @@ export class UsersController {
   }
 
   @Delete('/:id')
+  @ApiOkResponse({ description: 'Sucesso ao deletar' })
+  @ApiForbiddenResponse({ description: 'Não permitido' })
   @Role(UserRole.ADMIN)
   async deleteUser(@Param('id') id: string) {
     await this.usersService.deleteUser(id);
