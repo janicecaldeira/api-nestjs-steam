@@ -9,7 +9,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinTable,
-  OneToMany,
+  ManyToMany,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
@@ -56,10 +56,8 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @ManyToMany(() => Game, (game) => game.users)
   @JoinTable({ name: 'user_games' })
-  @OneToMany(() => Game, (game) => game.users, {
-    cascade: true,
-  })
   games: Game[];
 
   async checkPassword(password: string): Promise<boolean> {

@@ -7,7 +7,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -37,6 +38,7 @@ export class Game extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => User, (user) => user.games)
+  @ManyToMany(() => User, (user) => user.games)
+  @JoinTable()
   users: User[];
 }
